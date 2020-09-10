@@ -35,7 +35,7 @@ public class SchoolClassService {
         this.schoolClass.getStudents().remove(student);
     }
 
-    public Student getFromStudentList(SchoolClass schoolClass, long id){
+    public Student getFromStudentList(long id){
         for (int i = 0; i < this.schoolClass.getStudents().size(); i++) {
             if (id == this.schoolClass.getStudents().get(i).getId()){
                 return this.schoolClass.getStudents().get(i);

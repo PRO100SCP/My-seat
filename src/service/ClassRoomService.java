@@ -15,7 +15,7 @@ public class ClassRoomService {
         this.classRoom = classRoom;
     }
 
-    public ClassRoom create(long id, String name, int desksNum, SchoolClass schoolClass){
+    public ClassRoom create(long id, String name, int desksNum, SchoolClass schoolClass){//проверить наличие нужды в School Class
         ClassRoom classRoom=new ClassRoom(desksNum);
         classRoom.setName(name);
         classRoom.setDeskAmount(desksNum);
@@ -48,6 +48,7 @@ public class ClassRoomService {
         classRoom.getDesks().set(id, desk);
     }
     public void putInNextDesk(Student student){
+        //Сделать try catch на случай выхода из массива
         for (ClassRoom.Desk d:classRoom.getDesks()){
             if (d.getRightSeat() == null){
                 d.setRightSeat(student);
