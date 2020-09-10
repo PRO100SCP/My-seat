@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<data>
+    <schoolClass id="1" name="7A" studAmount="4">
+        <students>
+            <student id="1">
+                <firstName>Yura</firstName>
+                <lastName>Chan</lastName>
+                <age>13</age>
+                <vision>1.0</vision>
+                <subjects>
+                    <subject id="1">
+                        <name>Mathematics</name>
+                        <score>2.0</score>
+                    </subject>
+                    <subject id="2">
+                        <name>Russian Language</name>
+                        <score>5.0</score>
+                    </subject>
+                    <subject id="3">
+                        <name>Biology</name>
+                        <score>3.0</score>
+                    </subject>
+                </subjects>
+            </student>
+            <student id="2">
+                <firstName>Vasya</firstName>
+                <lastName>Ivanov</lastName>
+                <age>13</age>
+                <vision>1.2</vision>
+                <subjects>
+                    <subject id="1">
+                        <name>Mathematics</name>
+                        <score>4.0</score>
+                    </subject>
+                    <subject id="2">
+                        <name>Russian Language</name>
+                        <score>3.0</score>
+                    </subject>
+                    <subject id="3">
+                        <name>Biology</name>
+                        <score>4.0</score>
+                    </subject>
+                </subjects>
+            </student>
+            <student id="3">
+                <firstName>Yana</firstName>
+                <lastName>Pisatel</lastName>
+                <age>14</age>
+                <vision>1.6</vision>
+                <subjects>
+                    <subject id="1">
+                        <name>Mathematics</name>
+                        <score>3.0</score>
+                    </subject>
+                    <subject id="2">
+                        <name>Russian Language</name>
+                        <score>3.0</score>
+                    </subject>
+                    <subject id="3">
+                        <name>Biology</name>
+                        <score>3.0</score>
+                    </subject>
+                </subjects>
+            </student>
+            <student id="4">
+                <firstName>Sveta</firstName>
+                <lastName>Virova</lastName>
+                <age>13</age>
+                <vision>-2.0</vision>
+                <subjects>
+                    <subject id="1">
+                        <name>Mathematics</name>
+                        <score>5.0</score>
+                    </subject>
+                    <subject id="2">
+                        <name>Russian Language</name>
+                        <score>5.0</score>
+                    </subject>
+                    <subject id="3">
+                        <name>Biology</name>
+                        <score>5.0</score>
+                    </subject>
+                </subjects>
+            </student>
+        </students>
+    </schoolClass>
+</data>
