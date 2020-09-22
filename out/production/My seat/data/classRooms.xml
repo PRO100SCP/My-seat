@@ -1,11 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <data>
-    <classRoom id = "?">
-        <classNumber></classNumber>
-        <deskNumbers></deskNumbers>
-        <desk number="">
-            <leftSeat></leftSeat>
-            <rightSeat></rightSeat>
-        </desk>
-    </classRoom>
+    
+    
 </data>
