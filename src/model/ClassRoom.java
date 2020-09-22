@@ -20,6 +20,10 @@ public class ClassRoom {
         }
     }
 
+    public ClassRoom() {
+
+    }
+
     public class Desk {
         private long id;
         private Student leftSeat;

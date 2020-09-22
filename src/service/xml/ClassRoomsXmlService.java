@@ -3,6 +3,7 @@ package service.xml;
 import model.ClassRoom;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import org.w3c.dom.Document;
@@ -41,8 +42,40 @@ public class ClassRoomsXmlService {
         for(int i=0; i<classRoom.getDesks().size(); i++){
             ClassRoom.Desk desk=classRoom.getDesks().get(i);
         }
+        elementCR.appendChild(elementCR);
+        elementD.appendChild(elementD);
+        saveDocument();
     }
-    public void saveDocument() {
+    public void deleteByName(String name){
+        Node root=document.getDocumentElement();
+        NodeList elementClassRooms=root.getChildNodes();
+        for (int i=0; i<elementClassRooms.getLength(); i++){
+            Node elementClassRoom=elementClassRooms.item(i);
+            if(elementClassRoom.getNodeType()!=Node.TEXT_NODE){
+                if(elementClassRoom.getAttributes().getNamedItem("name").getTextContent().equals(name)){
+                    elementClassRoom.getParentNode().removeChild(elementClassRoom);
+                    saveDocument();
+                }
+            }
+        }
+    }
+    public ClassRoom getByName(String name) {
+        ClassRoom classRoom = new ClassRoom();
+        Node root = document.getDocumentElement();
+        NodeList elementClassRooms = root.getChildNodes();
+        for (int i = 0; i < elementClassRooms.getLength(); i++) {
+            Node elementClassRoom = elementClassRooms.item(i);
+            if (elementClassRoom.getNodeType() != Node.TEXT_NODE){
+                if (elementClassRoom.getAttributes().getNamedItem("name").getTextContent().equals(name)) {
+                    classRoom.setId(Long.parseLong(elementClassRoom.getAttributes().getNamedItem("id").getTextContent()));
+                    classRoom.setName(elementClassRoom.getAttributes().getNamedItem("name").getTextContent());
+                }
+            }
+        }
+        return classRoom;
+    }
+
+    public void saveDocument(){
         try {
             Transformer tr = TransformerFactory.newInstance().newTransformer();
             DOMSource source = new DOMSource(document);
@@ -51,7 +84,8 @@ public class ClassRoomsXmlService {
             tr.setOutputProperty(OutputKeys.INDENT, "yes");
             tr.transform(source, result);
 
-        } catch (TransformerException | IOException e) {
+        }
+        catch (TransformerException | IOException e) {
             e.printStackTrace();
         }
     }
