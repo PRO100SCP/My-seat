@@ -11,7 +11,10 @@ public class XmlTest {
         ClassRoomsXmlService classRoomsXmlService = new ClassRoomsXmlService();
         SchoolClass schoolClass = xml.getByName("7A");
         ClassRoom classRoom=new ClassRoom(5);
-        classRoomsXmlService.deleteByName("1");
+        classRoom.setId(0);
+        classRoom.setName("54");
+        classRoom.setSchoolClass(schoolClass);
+        classRoomsXmlService.add(classRoom);
         System.out.println();
     }
 }

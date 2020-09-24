@@ -2,6 +2,7 @@ package service.xml;
 
 import model.ClassRoom;
 import model.ClassRoom.Desk;
+import model.Student;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,9 +43,17 @@ public class ClassRoomsXmlService {
         elementCR.setAttribute("id", String.valueOf(classRoom.getId()));
         Element elementClasNum=document.createElement("ClassNumber");
         elementClasNum.setTextContent(classRoom.getName());
+        Element elementSchoolClassName = document.createElement("SchoolClassName");
+        if (classRoom.getSchoolClass() == null){
+            elementSchoolClassName.setTextContent("null");
+        }
+        else {
+            elementSchoolClassName.setTextContent(String.valueOf(classRoom.getSchoolClass().getId()));
+        }
         Element elementDesNum=document.createElement("DeskNumbers");
         elementDesNum.setTextContent(String.valueOf(classRoom.getDeskAmount()));
         elementCR.appendChild(elementClasNum);
+        elementCR.appendChild(elementSchoolClassName);
         elementCR.appendChild(elementDesNum);
         for(int i=0; i<classRoom.getDesks().size(); i++){
             Desk desk=classRoom.getDesks().get(i);
@@ -84,8 +93,10 @@ public class ClassRoomsXmlService {
     }
     public ClassRoom getById(String id) {
         ClassRoom classRoom = new ClassRoom();
-        List<Desk> DeskList=new ArrayList<Desk>();
+        ClassRoom.Desk desk = classRoom.new Desk();
+        List<Desk> deskList=new ArrayList<Desk>();
         Node root = document.getDocumentElement();
+        Student student=new Student();
         NodeList elementClasRooms=root.getChildNodes();
         for (int i=0; i<elementClasRooms.getLength(); i++){
             Node elementClasRoom=elementClasRooms.item(i);
@@ -94,7 +105,44 @@ public class ClassRoomsXmlService {
                     if (elementClasRoom.getAttributes().getNamedItem("id").getTextContent().equals(id)){
                         classRoom.setId(Long.parseLong(elementClasRoom.getAttributes().getNamedItem("id").getTextContent()));
                         NodeList elementClassRoomDetails = elementClasRoom.getChildNodes();
-                        
+                        for (int j=0; j<elementClassRoomDetails.getLength(); j++){
+                            Node elementClassRoomDetail=elementClassRoomDetails.item(j);
+                            if (elementClassRoomDetail.getNodeType()!=Node.TEXT_NODE){
+                                if (elementClassRoomDetail.getNodeName().equals("ClassNumber")){
+                                    classRoom.setName(elementClassRoomDetail.getTextContent());
+                                }
+                                if (elementClassRoomDetail.getNodeName().equals("SchoolClassName")){
+                                    if (elementClassRoomDetail.getTextContent().equals("null")){
+                                        classRoom.setSchoolClass(null);
+                                    }
+                                    else{
+                                        SchoolClassesXmlService schoolClassesXmlServ = new SchoolClassesXmlService();
+                                        classRoom.setSchoolClass(schoolClassesXmlServ.getByName(elementClassRoomDetail.getTextContent())
+                                        );
+                                    }
+                                }
+                                if (elementClassRoomDetail.getNodeName().equals("DeskNumbers")){
+                                    classRoom.setDeskAmount(Integer.parseInt(elementClassRoomDetail.getTextContent()));
+                                }
+                                if (elementClassRoomDetail.getNodeName().equals("Desks")){
+                                    desk.setId(Long.parseLong(elementClassRoomDetail.getAttributes().getNamedItem("id").getTextContent()));
+                                    NodeList elementDeskDetails = elementClassRoomDetail.getChildNodes();
+                                    for (int k=0; k<elementDeskDetails.getLength(); k++){
+                                        Node elementDeskDetail = elementDeskDetails.item(k);
+                                        if (elementDeskDetail.getNodeType()!=Node.TEXT_NODE){
+                                            if (elementDeskDetail.getNodeName().equals("LeftSeat")){
+                                                if (elementDeskDetail.getTextContent().equals("null")){
+                                                    desk.setLeftSeat(null);
+                                                }
+                                                else {
+                                                    
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
