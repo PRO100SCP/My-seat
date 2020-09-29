@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <data>
+                                                            
+    
+
+    
+
+    
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     <classRoom id="0">
         <ClassNumber>54</ClassNumber>
+        <SchoolClassName>7A</SchoolClassName>
         <DeskNumbers>5</DeskNumbers>
         <Desks id="0">
-            <LeftSeat>null</LeftSeat>
-            <RightSeat>null</RightSeat>
+            <LeftSeat>2</LeftSeat>
+            <RightSeat>1</RightSeat>
         </Desks>
         <Desks id="1">
             <LeftSeat>null</LeftSeat>
-            <RightSeat>null</RightSeat>
+            <RightSeat>3</RightSeat>
         </Desks>
         <Desks id="2">
             <LeftSeat>null</LeftSeat>

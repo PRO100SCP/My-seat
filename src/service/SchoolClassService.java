@@ -36,11 +36,13 @@ public class SchoolClassService {
     }
 
     public Student getFromStudentList(long id){
+        Student student=new Student();
         for (int i = 0; i < this.schoolClass.getStudents().size(); i++) {
-            if (id == this.schoolClass.getStudents().get(i).getId()){
-                return this.schoolClass.getStudents().get(i);
+            if (this.schoolClass.getStudents().get(i).getId()==id){
+                student=this.schoolClass.getStudents().get(i);
             }
         }
-        return null;
+        return student;
     }
+
 }

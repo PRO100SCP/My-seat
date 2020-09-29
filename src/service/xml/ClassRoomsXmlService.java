@@ -2,6 +2,7 @@ package service.xml;
 
 import model.ClassRoom;
 import model.ClassRoom.Desk;
+import model.SchoolClass;
 import model.Student;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,6 +10,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import org.w3c.dom.Document;
+import service.SchoolClassService;
+import service.StudentService;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -48,7 +52,7 @@ public class ClassRoomsXmlService {
             elementSchoolClassName.setTextContent("null");
         }
         else {
-            elementSchoolClassName.setTextContent(String.valueOf(classRoom.getSchoolClass().getId()));
+            elementSchoolClassName.setTextContent(String.valueOf(classRoom.getSchoolClass().getName()));
         }
         Element elementDesNum=document.createElement("DeskNumbers");
         elementDesNum.setTextContent(String.valueOf(classRoom.getDeskAmount()));
@@ -101,7 +105,7 @@ public class ClassRoomsXmlService {
         for (int i=0; i<elementClasRooms.getLength(); i++){
             Node elementClasRoom=elementClasRooms.item(i);
             if (elementClasRoom.getNodeType()!=Node.TEXT_NODE){
-                if (elementClasRoom.getNodeName().equals("ClassRoom")){
+                if (elementClasRoom.getNodeName().equals("classRoom")){
                     if (elementClasRoom.getAttributes().getNamedItem("id").getTextContent().equals(id)){
                         classRoom.setId(Long.parseLong(elementClasRoom.getAttributes().getNamedItem("id").getTextContent()));
                         NodeList elementClassRoomDetails = elementClasRoom.getChildNodes();
@@ -135,11 +139,23 @@ public class ClassRoomsXmlService {
                                                     desk.setLeftSeat(null);
                                                 }
                                                 else {
-                                                    
+                                                    SchoolClassService schoolClassS=new SchoolClassService(classRoom.getSchoolClass());
+                                                    desk.setLeftSeat(schoolClassS.getFromStudentList(Long.parseLong(elementClasRoom.getTextContent())));
+                                                }
+                                            }
+                                            if (elementDeskDetail.getNodeName().equals("RightSeat")){
+                                                if (elementDeskDetail.getTextContent().equals("null")){
+                                                    desk.setRightSeat(null);
+                                                }
+                                                else {
+                                                    SchoolClassService schoolClassS=new SchoolClassService(classRoom.getSchoolClass());
+                                                    desk.setRightSeat(schoolClassS.getFromStudentList(Long.parseLong(elementClasRoom.getTextContent())));
                                                 }
                                             }
                                         }
+                                     deskList.add(desk);
                                     }
+                                    classRoom.setDesks(deskList);
                                 }
                             }
                         }
@@ -147,7 +163,7 @@ public class ClassRoomsXmlService {
                 }
             }
         }
-        return null;
+        return classRoom;
     }
 
     public void saveDocument(){
