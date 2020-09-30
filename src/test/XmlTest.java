@@ -23,11 +23,25 @@ public class XmlTest {
         crs.putInNextDesk(schoolClass.getStudents().get(0));
         crs.putInNextDesk(schoolClass.getStudents().get(1));
         crs.putInNextDesk(schoolClass.getStudents().get(2));
+        crs.putInNextDesk(schoolClass.getStudents().get(3));
         classRoomsXmlService.deleteByName("0");
         classRoomsXmlService.add(classRoom);
-        //classRoom=classRoomsXmlService.getById("0");
-        //System.out.println(classRoom.getName());
-        Student student=new SchoolClassService(schoolClass).getFromStudentList(1);
-        System.out.println(student.getFirstName());
+        classRoom=classRoomsXmlService.getById("0");
+        System.out.println("Class Number: "+classRoom.getName());
+        System.out.println("Class Name: " +classRoom.getSchoolClass().getName());
+        for (ClassRoom.Desk desk : classRoom.getDesks()){
+            String leftSeat;
+            String rightSeat;
+            if (desk.getLeftSeat() == null){
+                leftSeat = "none";
+            }
+            else leftSeat = desk.getLeftSeat().getFirstName() + " " +desk.getLeftSeat().getLastName();
+            if (desk.getRightSeat() == null){
+                rightSeat = "none";
+            }
+            else rightSeat = desk.getRightSeat().getFirstName() + " " +desk.getRightSeat().getLastName();
+            System.out.println("Left Seat: " +leftSeat + " || Right Seat: " + rightSeat);
+
+        }
     }
 }

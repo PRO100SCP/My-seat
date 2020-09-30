@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <data>
-                                                            
+                                                                            
     
 
     
@@ -8,6 +8,14 @@
     
     
     
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -39,20 +47,20 @@
             <RightSeat>1</RightSeat>
         </Desks>
         <Desks id="1">
-            <LeftSeat>null</LeftSeat>
+            <LeftSeat>4</LeftSeat>
             <RightSeat>3</RightSeat>
         </Desks>
         <Desks id="2">
-            <LeftSeat>null</LeftSeat>
-            <RightSeat>null</RightSeat>
+            <LeftSeat>none</LeftSeat>
+            <RightSeat>none</RightSeat>
         </Desks>
         <Desks id="3">
-            <LeftSeat>null</LeftSeat>
-            <RightSeat>null</RightSeat>
+            <LeftSeat>none</LeftSeat>
+            <RightSeat>none</RightSeat>
         </Desks>
         <Desks id="4">
-            <LeftSeat>null</LeftSeat>
-            <RightSeat>null</RightSeat>
+            <LeftSeat>none</LeftSeat>
+            <RightSeat>none</RightSeat>
         </Desks>
     </classRoom>
 </data>
