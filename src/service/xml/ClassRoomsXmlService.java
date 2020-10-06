@@ -65,15 +65,15 @@ public class ClassRoomsXmlService {
             elementDess.setAttribute("id", String.valueOf(desk.getId()));
             Element elementLS=document.createElement("LeftSeat");
             try{
-            elementLS.setTextContent(String.valueOf(desk.getLeftSeat().getId()));
+                elementLS.setTextContent(String.valueOf(desk.getLeftSeat().getId()));
             }catch (NullPointerException e){
-                elementLS.setTextContent("null");
+                elementLS.setTextContent("none");
             }
             Element elementRS=document.createElement("RightSeat");
             try{
-            elementRS.setTextContent(String.valueOf(desk.getRightSeat().getId()));
+                elementRS.setTextContent(String.valueOf(desk.getRightSeat().getId()));
             }catch (NullPointerException e) {
-                elementRS.setTextContent("null");
+                elementRS.setTextContent("none");
             }
             elementDess.appendChild(elementLS);
             elementDess.appendChild(elementRS);
@@ -97,8 +97,7 @@ public class ClassRoomsXmlService {
     }
     public ClassRoom getById(String id) {
         ClassRoom classRoom = new ClassRoom();
-        ClassRoom.Desk desk = classRoom.new Desk();
-        List<Desk> deskList=new ArrayList<Desk>();
+        List<Desk> deskList=new ArrayList<>();
         Node root = document.getDocumentElement();
         Student student=new Student();
         NodeList elementClasRooms=root.getChildNodes();
@@ -129,33 +128,33 @@ public class ClassRoomsXmlService {
                                     classRoom.setDeskAmount(Integer.parseInt(elementClassRoomDetail.getTextContent()));
                                 }
                                 if (elementClassRoomDetail.getNodeName().equals("Desks")){
+                                    ClassRoom.Desk desk = classRoom.new Desk();
                                     desk.setId(Long.parseLong(elementClassRoomDetail.getAttributes().getNamedItem("id").getTextContent()));
                                     NodeList elementDeskDetails = elementClassRoomDetail.getChildNodes();
                                     for (int k=0; k<elementDeskDetails.getLength(); k++){
                                         Node elementDeskDetail = elementDeskDetails.item(k);
                                         if (elementDeskDetail.getNodeType()!=Node.TEXT_NODE){
                                             if (elementDeskDetail.getNodeName().equals("LeftSeat")){
-                                                if (elementDeskDetail.getTextContent().equals("null")){
+                                                if (elementDeskDetail.getTextContent().equals("none")){
                                                     desk.setLeftSeat(null);
                                                 }
                                                 else {
                                                     SchoolClassService schoolClassS=new SchoolClassService(classRoom.getSchoolClass());
-                                                    desk.setLeftSeat(schoolClassS.getFromStudentList(Long.parseLong(elementClasRoom.getTextContent())));
+                                                    desk.setLeftSeat(schoolClassS.getFromStudentList(Long.parseLong(elementDeskDetail.getTextContent())));
                                                 }
                                             }
                                             if (elementDeskDetail.getNodeName().equals("RightSeat")){
-                                                if (elementDeskDetail.getTextContent().equals("null")){
+                                                if (elementDeskDetail.getTextContent().equals("none")){
                                                     desk.setRightSeat(null);
                                                 }
                                                 else {
                                                     SchoolClassService schoolClassS=new SchoolClassService(classRoom.getSchoolClass());
-                                                    desk.setRightSeat(schoolClassS.getFromStudentList(Long.parseLong(elementClasRoom.getTextContent())));
+                                                    desk.setRightSeat(schoolClassS.getFromStudentList(Long.parseLong(elementDeskDetail.getTextContent())));
                                                 }
                                             }
                                         }
-                                     deskList.add(desk);
                                     }
-                                    classRoom.setDesks(deskList);
+                                    deskList.add(desk);
                                 }
                             }
                         }
@@ -163,6 +162,7 @@ public class ClassRoomsXmlService {
                 }
             }
         }
+        classRoom.setDesks(deskList);
         return classRoom;
     }
 
